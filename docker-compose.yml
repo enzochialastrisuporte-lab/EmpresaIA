@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
     restart: unless-stopped
 
     ports:
@@ -13,11 +12,16 @@ services:
       HOST: "0.0.0.0"
       PORT: "3100"
       PAPERCLIP_HOME: "/paperclip"
-
       BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET}"
       PAPERCLIP_ALLOWED_HOSTNAMES: "${PAPERCLIP_ALLOWED_HOSTNAMES}"
       NVIDIA_API_KEY: "${NVIDIA_API_KEY}"
+      PAPERCLIP_PI_PROVIDERS: "${PAPERCLIP_PI_PROVIDERS}"
 
+    volumes:
+      - paperclip_data:/paperclip
+
+volumes:
+  paperclip_data:
       PAPERCLIP_PI_PROVIDERS: >-
         {"nvidia":{"baseUrl":"https://integrate.api.nvidia.com/v1","api":"openai-completions","apiKey":"NVIDIA_API_KEY","models":[{"id":"nvidia/nemotron-3.5-lightning-30b-a3b","name":"NVIDIA Nemotron 3.5 Lightning 30B A3B","reasoning":true,"input":["text"],"contextWindow":1000000,"maxTokens":16384}]}}
 
