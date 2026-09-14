@@ -1,30 +1,22 @@
 services:
   paperclip:
-    build:
-      context: .
-      dockerfile: Dockerfile
-
+    image: ghcr.io/paperclipai/paperclip:latest
     restart: unless-stopped
 
     ports:
-      - "3101:3100"
+      - "3100:3100"
 
     environment:
       HOST: "0.0.0.0"
       PORT: "3100"
-
       PAPERCLIP_HOME: "/paperclip"
-
       BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET}"
-
       PAPERCLIP_ALLOWED_HOSTNAMES: "${PAPERCLIP_ALLOWED_HOSTNAMES}"
-
-      NVIDIA_API_KEY: "${NVIDIA_API_KEY}"
-
       PAPERCLIP_PI_PROVIDERS: "${PAPERCLIP_PI_PROVIDERS}"
+      OMNIROUTE_API_KEY: "${OMNIROUTE_API_KEY}"
 
     volumes:
-      - paperclip_data_new:/paperclip
+      - paperclip_data:/paperclip
 
 volumes:
-  paperclip_data_new:
+  paperclip_data:
